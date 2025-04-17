@@ -1,11 +1,11 @@
 package com.td.loan.demo.service;
 
 import com.td.loan.demo.repository.LoanRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LoanService {
@@ -16,10 +16,10 @@ public class LoanService {
         this.loanRepository = loanRepository;
     }
 
-    public List<String> getCustomersByLoanAmount(Integer minLoanAmount) {
+    public List<String> getCustomersByLoanAmount(int minLoanAmount, int pageNumber, int pageSize) {
 
-        Optional<List<String>> loans = loanRepository.getLoansByCustomerAmount(minLoanAmount);
-        return loans.orElseGet(ArrayList::new);
+        Page<String> loans = loanRepository.getLoansByCustomerAmountWithPagination(minLoanAmount, PageRequest.of(pageNumber, pageSize));
+        return loans.stream().toList();
 
     }
 }

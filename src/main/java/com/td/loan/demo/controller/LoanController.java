@@ -20,9 +20,9 @@ public class LoanController {
     }
 
     @GetMapping("loan")
-    public ResponseEntity<?> getCustomerIdsByMinLoanAmount(@RequestParam Integer minLoanAmount) {
+    public ResponseEntity<?> getCustomerIdsByMinLoanAmount(@RequestParam int minLoanAmount, @RequestParam int pageNumber, @RequestParam int pageSize) {
 
-        List<String> customers = loanService.getCustomersByLoanAmount(minLoanAmount);
+        List<String> customers = loanService.getCustomersByLoanAmount(minLoanAmount, pageNumber, pageSize);
         return ResponseEntity.ok(customers);
 
     }
